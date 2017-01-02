@@ -201,7 +201,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename algorithm_figure.png
-	scale 30
+	scale 50
 
 \end_inset
 
@@ -234,11 +234,11 @@ Validation/Experimentation
 \end_layout
 
 \begin_layout Standard
-Présentation des architectures auquels on le compare
+Three different configurations has been used for the performances tests:
 \end_layout
 
 \begin_layout Itemize
-The second configuration has two 18-core Intel Xeon E5-2697 (Broadwell)
+The first one configuration has two 18-core Intel Xeon E5-2697 (Broadwell)
  processors, running at 2,6 GHz.
  Each socket as 35 MiB of shared L3 cache, and each core has a private 3,5
  MiB L2 and 448 KB L1 cache.
@@ -247,12 +247,163 @@ The second configuration has two 18-core Intel Xeon E5-2697 (Broadwell)
 \end_layout
 
 \begin_layout Itemize
-The last system is equipped with two 8-core Intel Xeon E5-2670 (Sandy Bridge)
- processors and two Intel Xeon Phi 7120 (KNC) cards with 15,8 GB per card.
+The second system is equipped with two 8-core Intel Xeon E5-2670 (Sandy
+ Bridge) processors and two Intel Xeon Phi 7120 (KNC) cards with 15,8 GB
+ per card.
  She is equip with 61 core runng at 1,23GHz.
  And achieving a double precision theoretical peak of 1180 Gflops/s.
  The KNC is the old version of Xeon Phi and don't have MCDRAM and vector
  unit.
+\end_layout
+
+\begin_layout Itemize
+The last is a selfhosted preproduction Intel Xeon Phi Knights Landing (KNL)
+ card, with 16 GB of MCDRAM used in flat mode, running at 1.3GHz and achieving
+ a double precision at a theorical peak of 2662 Gflop/s.
+ It has 64 cores with 4 hyper-threads each.
+\end_layout
+
+\begin_layout Standard
+The tests are performed over the three differents factorizations algorithms
+ with varying matrix size (from 2k to 40k cells for border size).
+ For the LU factorization we can see that behind the 6k size the two KNL
+ and the first one are far over the others with aproximatively twice the
+ performance.
+ The KNL reached its limit of performance at 28k with a peak of 1500Gflop/s
+ et come behind the second configuration that reach the 1700Gflop/s with
+ the 40k matrix.
+ We can also see that the KNL cannot perform tests over 30k matrix because
+ of its memory.
+\end_layout
+
+\begin_layout Standard
+For the QR factorization we have the same schema, the third configuration
+ get to follow the KNL until 8k matrix size but get overtaked with taller
+ matrix.
+ With medium matrix size the KNL is still leading with the third configuration
+ like the LU factorization.
+\end_layout
+
+\begin_layout Standard
+Finally for the Cholesky factorization the second config is ahead on small
+ matrix (6k size) but the KNL leads the way until 16k matrix size and the
+ last configuration (two KNC and one processor) get better performance on
+ large matrix.
+\end_layout
+
+\begin_layout Standard
+To sum up this differents tests, the new Xeon Phi proposed by Intel obtain
+ better performances than the older version (KNC) but is not uneatable on
+ performance contest.
+ We can see that it obtains remarquable performances on small matrix but
+ we easily reached the limit of performance on medium matrix.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename LU_performances.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+LU performances with MAGMA
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename QR_performances.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+QR performances with MAGMA
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Cholesky_performances.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Cholesky performances with MAGMA
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Part
