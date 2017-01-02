@@ -122,6 +122,33 @@ Today's modern computers have a wide variety of heterogeneous compute resources,
  algorithms: LU, QR and Cholesky.
 \end_layout
 
+\begin_layout Standard
+Presentation of KNL, KNL is the new version of Xeon Phi.
+ He is on the Intel Family of Many Integrated Core architecture (MIC).
+ He is available in two form, coprocessor and host processor.
+ He will be built using up to 72 cores with four threads per core and use
+ LGA 3647 socket.
+ Each core are engrave at 14nm.
+ It supports for up 384Gb of DDR4 RAM and for up 16Gb of MCDRAM.
+ The MCDRAM is a innovation for the Xeon, it's a 3D-stacked DRAM.
+ The favours of the RAM is the fast access to data (better than classical
+ RAM) on the test, they use the MCDRAM in flat mode, so the MCDRAM have
+ her own adress space and can be adress explicitly.
+ The next innovation of the KNL is the addition of two 512-bit vectorial
+ unit on each core.
+ The KNL achieave a double precision theorical peak of 2662 Gflops/s.
+ The version used in the test is the selfhosted preproduction Intel Xeon
+ Phi card with 16Gb of MCDRAM, each core run at 1,3 GHz.
+ It consists of 64 cores with 4 hyperthreads each.
+ The KNL have different mod of utilisation.
+ You can use in InterConnect mode, in this mode, all core are connected
+ with his neighbor's.
+ Other mode are Cluster Mode with a "All to All", quadrant and Sub-Numa.
+ In the test, they use the Quadrant Mode to increase performance.
+ The principe is simple, the card is cut into four part, every part have
+ a unique Master and the core remaining are a slave.
+\end_layout
+
 \begin_layout Part
 Contribution
 \end_layout
@@ -129,10 +156,10 @@ Contribution
 \begin_layout Standard
 The MAGMA (Matrix Algebra on GPU and Multi-core Architectures) project aims
  to develop a dense linear algebra library similar to LAPACK but for heterogeneo
-us/hybrid architectures, starting with current “Multi- core+GPU” systems.
+us/hybrid architectures, starting with current “Multi-core and GPU” systems.
  The goal of MAGMA is to combine the strengths of different algorithms within
  a single framework.
- They want to deseign linear algebra algorithms and frameworks for hybrid
+ They want to design linear algebra algorithms and frameworks for hybrid
  manycore and GPUs systemes that can enable applications to fully exploit
  the power that each of the hybrid components offer.
  In practice MAGMA want to reduce the communication into every function
@@ -141,6 +168,65 @@ us/hybrid architectures, starting with current “Multi- core+GPU” systems.
 
 \begin_layout Part
 Elements d'implémentation
+\end_layout
+
+\begin_layout Standard
+MAGMA actually uses the BLAS libraries to compute the LU, QR and Cholesky
+ matrix factorizations.
+ The algorithm works as follow:
+\end_layout
+
+\begin_layout Standard
+First we factorize the first row and column of the matrix and when we finish
+ this task we update the trailing matrix on the GPU.
+ To use parallelism on this algorithm the idea is to start to factorize
+ the first line and column of the trailing matrix as soon as possible so
+ when the GPU updated them.
+ The factorization works on the CPU to maximize the performances.
+ The BLAS2 library is used on the factorization of single vectors (column
+ and row) and the BLAS3 is used on the update of the trailing matrix.
+ We can also vary the depth level of the algorithm because we can have at
+ the same time multiple updating task on the trailing matrix.
+ When the second factorization ended we launch a second update on the trailing
+ matrix while the first is still running.
+ The number of updating tasks is the depth level.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename algorithm_figure.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Two-phase implementation of a one-sided factorization
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Part
