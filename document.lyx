@@ -70,7 +70,139 @@
 
 \begin_body
 
+\begin_layout Title
+LU, QR and Cholesky factorizations: Programming Model, Performance Analysis
+ and Optimization Techniques for the Intel Knights Landing Xeon Phi
+\end_layout
+
+\begin_layout Author
+Azzam Haidar, Stanimire Tomov University of Tennessee Knoxville, TN 37916
+\end_layout
+
+\begin_layout Author
+Konstantin Arturov Intel Corporation Novosibirsk, Russia
+\end_layout
+
+\begin_layout Author
+Murat Guney, Shane Story Intel Corporation Hillsboro, OR 97124 
+\end_layout
+
+\begin_layout Author
+Jack Dongarra University of Tennessee, Knoxville Oak Ridge National Laboratory,
+ USA University of Manchester, UK
+\end_layout
+
+\begin_layout Part
+Introduction
+\end_layout
+
 \begin_layout Standard
+Today's modern computers have a wide variety of heterogeneous compute resources,
+ ranging from multicore CPUs to GPUs and to face up to the increase quantity
+ of numerical informations and modern systems complexity, it is necessary
+ to enhance the structures that manage this task.
+ The main thing of the heterogeous system is the capacity of every ressources
+ to work in the same time.
+ A good task scheduling is paramount to increase performance on this type
+ of system.
+ The biggest problem is to chop every task to execute in the same time while
+ avoiding the competitor accesses.
+ With the multiplication of core number, the developers must change their
+ way of programming in order to slice the problem to be able to parrallelize
+ their application with high-performance.
+ Intel released a new Xeon PHI called KNL (Knight Landing) which has up
+ to 72 cores and this paper is about testing a library called MAGMA in this
+ new highly parallelizable platform.
+ In the matrix factorizations algorithm the MAGMA library provide a way
+ to slice the matrix to ensure that all the tasks will run at the same time
+ and with minimal idle time.
+ The library also use a way to divide all the cores of the KNL in order
+ to simulate multiple devices to use.
+ The article will compare performances over three different matrix factorization
+ algorithms: LU, QR and Cholesky.
+\end_layout
+
+\begin_layout Part
+Contribution
+\end_layout
+
+\begin_layout Standard
+The MAGMA (Matrix Algebra on GPU and Multi-core Architectures) project aims
+ to develop a dense linear algebra library similar to LAPACK but for heterogeneo
+us/hybrid architectures, starting with current “Multi- core+GPU” systems.
+ The goal of MAGMA is to combine the strengths of different algorithms within
+ a single framework.
+ They want to deseign linear algebra algorithms and frameworks for hybrid
+ manycore and GPUs systemes that can enable applications to fully exploit
+ the power that each of the hybrid components offer.
+ In practice MAGMA want to reduce the communication into every function
+ to have a better parallelism.
+\end_layout
+
+\begin_layout Part
+Elements d'implémentation
+\end_layout
+
+\begin_layout Part
+Validation/Experimentation
+\end_layout
+
+\begin_layout Standard
+Présentation des architectures auquels on le compare
+\end_layout
+
+\begin_layout Itemize
+The second configuration has two 18-core Intel Xeon E5-2697 (Broadwell)
+ processors, running at 2,6 GHz.
+ Each socket as 35 MiB of shared L3 cache, and each core has a private 3,5
+ MiB L2 and 448 KB L1 cache.
+ The system is equipped with 52 GB of memory and the theoretical peak in
+ double precision is 20,8 Gflop/s per core.
+\end_layout
+
+\begin_layout Itemize
+The last system is equipped with two 8-core Intel Xeon E5-2670 (Sandy Bridge)
+ processors and two Intel Xeon Phi 7120 (KNC) cards with 15,8 GB per card.
+ She is equip with 61 core runng at 1,23GHz.
+ And achieving a double precision theoretical peak of 1180 Gflops/s.
+ The KNC is the old version of Xeon Phi and don't have MCDRAM and vector
+ unit.
+\end_layout
+
+\begin_layout Part
+Conclusion
+\end_layout
+
+\begin_layout Section
+Discussion
+\end_layout
+
+\begin_layout Section
+Perspectives à court terme
+\end_layout
+
+\begin_layout Standard
+At this time, the KNL is in testing phase.
+ This paper is about testing matrices factorizations on it and a lot of
+ others performances tests will appear soon.
+\end_layout
+
+\begin_layout Section
+Perspectives à long terme
+\end_layout
+
+\begin_layout Standard
+In the long term, the KNL will be used in clusters for high performance
+ processing 
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-1"
+
+\end_inset
+
 
 \end_layout
 
