@@ -5,6 +5,10 @@
 \save_transient_properties true
 \origin unavailable
 \textclass IEEEtran-CompSoc
+\begin_preamble
+\usepackage[style=authoryear,backend=biber]{biblatex}
+\addbibresource{references.bib}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -24,7 +28,7 @@
 \graphics default
 \default_output_format default
 \output_sync 0
-\bibtex_command default
+\bibtex_command biber
 \index_command default
 \paperfontsize default
 \spacing single
@@ -421,10 +425,20 @@ In the long term, the KNL will be used in clusters for high performance
  processing 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-1"
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "references"
+options "plain"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
