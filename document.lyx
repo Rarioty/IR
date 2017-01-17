@@ -4,7 +4,7 @@
 \begin_header
 \save_transient_properties true
 \origin unavailable
-\textclass article
+\textclass IEEEtran-CompSoc
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -27,6 +27,7 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -76,23 +77,10 @@ LU, QR and Cholesky factorizations: Programming Model, Performance Analysis
 \end_layout
 
 \begin_layout Author
-Azzam Haidar, Stanimire Tomov University of Tennessee Knoxville, TN 37916
+DUFOYER Benjamin, CHEVALIER Arthur
 \end_layout
 
-\begin_layout Author
-Konstantin Arturov Intel Corporation Novosibirsk, Russia
-\end_layout
-
-\begin_layout Author
-Murat Guney, Shane Story Intel Corporation Hillsboro, OR 97124 
-\end_layout
-
-\begin_layout Author
-Jack Dongarra University of Tennessee, Knoxville Oak Ridge National Laboratory,
- USA University of Manchester, UK
-\end_layout
-
-\begin_layout Part
+\begin_layout Section
 Introduction
 \end_layout
 
@@ -149,7 +137,7 @@ Presentation of KNL, KNL is the new version of Xeon Phi.
  a unique Master and the core remaining are a slave.
 \end_layout
 
-\begin_layout Part
+\begin_layout Section
 Contribution
 \end_layout
 
@@ -166,7 +154,7 @@ us/hybrid architectures, starting with current “Multi-core and GPU” systems.
  to have a better parallelism.
 \end_layout
 
-\begin_layout Part
+\begin_layout Section
 Elements d'implémentation
 \end_layout
 
@@ -201,7 +189,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename algorithm_figure.png
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -229,7 +217,7 @@ Two-phase implementation of a one-sided factorization
 
 \end_layout
 
-\begin_layout Part
+\begin_layout Section
 Validation/Experimentation
 \end_layout
 
@@ -406,15 +394,15 @@ Cholesky performances with MAGMA
 
 \end_layout
 
-\begin_layout Part
+\begin_layout Section
 Conclusion
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Discussion
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Perspectives à court terme
 \end_layout
 
@@ -424,7 +412,7 @@ At this time, the KNL is in testing phase.
  others performances tests will appear soon.
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Perspectives à long terme
 \end_layout
 
