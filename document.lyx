@@ -159,7 +159,7 @@ us/hybrid architectures, starting with current “Multi-core and GPU” systems.
 \end_layout
 
 \begin_layout Section
-Elements d'implémentation
+Implementation elements
 \end_layout
 
 \begin_layout Standard
@@ -222,7 +222,7 @@ Two-phase implementation of a one-sided factorization
 \end_layout
 
 \begin_layout Section
-Validation/Experimentation
+Validation/Experiments
 \end_layout
 
 \begin_layout Standard
@@ -363,6 +363,7 @@ QR performances with MAGMA
 
 \begin_layout Standard
 \begin_inset Float figure
+placement h
 wide false
 sideways false
 status open
@@ -370,7 +371,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename Cholesky_performances.png
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -406,8 +407,25 @@ Conclusion
 Discussion
 \end_layout
 
+\begin_layout Standard
+This article explains the differents optimisations technics on the matrix
+ factorization LU, QR and Cholesky on many-cores systems.
+ The authors show how wise modifications of task management can bring higher
+ performances on heterogeneous systems while using the same alogirthm pattern
+ on all platforms.
+ The performances here allow us to realize that their approach is very good
+ on many-cores systems and make it possible to get high-performance with
+ high scalability along with easy development on different algorithms.
+ Concerning the KNL, we can see that this platform is better than the others
+ on some points compared to the present configurations but show its limits
+ in the actual version.
+ We must remind that this is just a preproduction version and maybe for
+ the future ones they will fix the impossibility to make tests on bigger
+ matrix than 30k of size.
+\end_layout
+
 \begin_layout Subsection
-Perspectives à court terme
+Short term perspectives
 \end_layout
 
 \begin_layout Standard
@@ -417,7 +435,7 @@ At this time, the KNL is in testing phase.
 \end_layout
 
 \begin_layout Subsection
-Perspectives à long terme
+Long term perspectives
 \end_layout
 
 \begin_layout Standard
@@ -438,6 +456,22 @@ options "plain"
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+printbibliography
 \end_layout
 
 \end_inset
