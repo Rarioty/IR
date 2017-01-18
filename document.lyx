@@ -6,7 +6,7 @@
 \origin unavailable
 \textclass IEEEtran-CompSoc
 \begin_preamble
-\usepackage[style=authoryear,backend=biber]{biblatex}
+\usepackage[style=authortitle,backend=biber]{biblatex}
 \addbibresource{references.bib}
 \end_preamble
 \use_default_options true
@@ -82,6 +82,23 @@ LU, QR and Cholesky factorizations: Programming Model, Performance Analysis
 
 \begin_layout Author
 DUFOYER Benjamin, CHEVALIER Arthur
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+This article is based on this one: 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "7761591"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -163,7 +180,164 @@ Implementation elements
 \end_layout
 
 \begin_layout Standard
-MAGMA actually uses the BLAS libraries to compute the LU, QR and Cholesky
+LU, QR and Cholesky are three matrix factorizations algorithms and in order
+ to understand the implementation of magma here is the cholesky explaination:
+\end_layout
+
+\begin_layout Standard
+The cholesky decomposition of a Hermitian-definitive matrix A is a decomposition
+ of the form 
+\begin_inset Formula $A=LL^{T}$
+\end_inset
+
+ where L is a lower triangular matrix with real and positive diagonal entries,
+ and 
+\begin_inset Formula $L^{T}$
+\end_inset
+
+ denotes the conjugate transpose of L.
+ Every !hermitian positive-definite matrix (and thus also every real-valued
+ symmetric positive-definite matrix) has a unique Cholesky decomposition.
+ The naive implementation of Cholesky is pretty simple:
+\end_layout
+
+\begin_layout Standard
+We want to decompose the matrix: 
+\begin_inset Formula 
+\[
+L=\left[\begin{array}{ccccc}
+l_{11}\\
+l_{21} & l_{22}\\
+. & . & .\\
+. & . &  & .\\
+l_{n1} & l_{n2} & . & . & l_{nn}
+\end{array}\right]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From the equality 
+\begin_inset Formula $A=LL^{T}$
+\end_inset
+
+ we can deduct that:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+a_{ij}=(LL^{T})_{ij}=\sum_{k=1}^{n}l_{ik}l_{jk}=\sum_{k=1}^{min\{i,j\}}l_{ik}l_{jk},1\leq i,j\leq n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+because 
+\begin_inset Formula $l_{pq}=0$
+\end_inset
+
+ if 
+\begin_inset Formula $1\leq i\leq j\leq n$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Because A is a symmetric matrix, the above formula has just to be verified
+ for 
+\begin_inset Formula $i\leq j$
+\end_inset
+
+, in other words all elements 
+\begin_inset Formula $l_{ij}$
+\end_inset
+
+of the L matrix has to satisfy:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+a_{ij}=\sum_{k=1}^{i}l_{ik}l_{jk},1\leq i\leq j\leq n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $i=1$
+\end_inset
+
+, we determine the first column of L:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+a_{11}=l_{11}l_{11}\Rightarrow l_{11}=\sqrt{a_{11}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+a_{1j}=l_{11}l_{j1}\Rightarrow l_{j1}=\frac{a_{1j}}{l_{11}},2\leq j\leq n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can then compute the i-th column of L (
+\begin_inset Formula $2\leq i\leq n$
+\end_inset
+
+) after the computing the (i-1) firsts columns:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+a_{ii}=l_{i1}l_{i1}+...+l_{ii}l_{ii}\Rightarrow l_{ii}=\sqrt{a_{ii}-\sum_{k=1}^{i-1}l_{ik}^{2}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+a_{ij}=l_{i1}l_{j1}+...+l_{ii}l_{ji}\Rightarrow l_{ji}=\frac{a_{ij}-\sum_{k=1}^{i-1}l_{ik}l_{jk}}{l_{ii}},i+1\leq j\leq n
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can see that we have a strong dependance of previous computing to get
+ the next one.
+ MAGMA actually uses the BLAS libraries to compute the LU, QR and Cholesky
  matrix factorizations.
  The algorithm works as follow:
 \end_layout
@@ -300,7 +474,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename LU_performances.png
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -337,7 +511,7 @@ status open
 \begin_layout Plain Layout
 \begin_inset Graphics
 	filename QR_performances.png
-	scale 50
+	scale 40
 
 \end_inset
 
@@ -363,7 +537,7 @@ QR performances with MAGMA
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
 status open
@@ -425,22 +599,17 @@ This article explains the differents optimisations technics on the matrix
 \end_layout
 
 \begin_layout Subsection
-Short term perspectives
+Perspectives
 \end_layout
 
 \begin_layout Standard
-At this time, the KNL is in testing phase.
- This paper is about testing matrices factorizations on it and a lot of
- others performances tests will appear soon.
-\end_layout
-
-\begin_layout Subsection
-Long term perspectives
-\end_layout
-
-\begin_layout Standard
-In the long term, the KNL will be used in clusters for high performance
- processing 
+At this time, the KNL is in preproduction phase and a lot of testing are
+ made to get the maximum performance of this platform.
+ In short terms, we will see some other papers about the decomposition of
+ the algorithm on many-core and others about the necessity to have dynamic
+ scheduling over static.
+ In the long term, the KNL will be used in clusters for high performance
+ processing or in all sort of many-process servers.
 \end_layout
 
 \begin_layout Standard
