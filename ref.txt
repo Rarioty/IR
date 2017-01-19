@@ -1,0 +1,8 @@
+Implementing Linear Algebra Routines on Multi-Core Processors
+with Pipelining and a Look Ahead - Jakub Kurzak and Jack Dongarra 
+
+
+
+ Look Left Look Right Look Left Again An Application of Fractal Symbolic Analysis to Linear Algebra Code Restructuring - Vijay Menon and Keshav Pingali 
+
+
