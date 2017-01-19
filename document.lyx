@@ -82,23 +82,6 @@ LU, QR and Cholesky factorizations: Programming Model, Performance Analysis
 
 \begin_layout Author
 DUFOYER Benjamin, CHEVALIER Arthur
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-This article is based on this one: 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "7761591"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Section
@@ -196,7 +179,7 @@ The cholesky decomposition of a Hermitian-definitive matrix A is a decomposition
 \end_inset
 
  denotes the conjugate transpose of L.
- Every !hermitian positive-definite matrix (and thus also every real-valued
+ Every hermitian positive-definite matrix (and thus also every real-valued
  symmetric positive-definite matrix) has a unique Cholesky decomposition.
  The naive implementation of Cholesky is pretty simple:
 \end_layout
@@ -339,7 +322,7 @@ We can see that we have a strong dependance of previous computing to get
  the next one.
  MAGMA actually uses the BLAS libraries to compute the LU, QR and Cholesky
  matrix factorizations.
- The algorithm works as follow:
+ The algorithm uses the Look-Ahead technique and works as follow:
 \end_layout
 
 \begin_layout Standard
@@ -642,6 +625,36 @@ status open
 \backslash
 printbibliography
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand nocite
+key "7761591"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand nocite
+key "Kurzak:2006:ILA"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand nocite
+key "journals/ijpp/MenonP04"
 
 \end_inset
 
