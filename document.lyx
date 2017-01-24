@@ -413,6 +413,26 @@ The last is a selfhosted preproduction Intel Xeon Phi Knights Landing (KNL)
 \end_layout
 
 \begin_layout Standard
+For the KNL, they try with 2 configurations, the first use the KNL with
+ 4 master cores and 60 devices cores and the second one with 4 devices of
+ 15 cores each.
+ The performances are similar with less than 5% difference.
+ It showns that when the kernels of the update reoutine are optimized to
+ perform on more number of core, split hardware over many device is useless.
+ Only one device is enough to have good performance.
+ With this configuration, the device is more simple to program, optimize,
+ observe and debug.
+\end_layout
+
+\begin_layout Standard
+The results ,expressed in GFlops/s, are performed in double precisions and
+ executed on 3 types of configurations in Hybrid mode and native mode.
+ They have performed the tests with the same code for every configuration
+ to see his protability, durability and his capacity to delivered performance
+ near the peak where it is used in native mode.
+\end_layout
+
+\begin_layout Standard
 The tests are performed over the three differents factorizations algorithms
  with varying matrix size (from 2k to 40k cells for border size).
  For the LU factorization we can see that behind the 6k size the two KNL
@@ -593,6 +613,11 @@ At this time, the KNL is in preproduction phase and a lot of testing are
  scheduling over static.
  In the long term, the KNL will be used in clusters for high performance
  processing or in all sort of many-process servers.
+ Finally in this paper they speak about future work including releasing
+ a dynamic MAGMA library that merges CUDA, OpenCL and Intel Xeon Phi into
+ a single software.
+ This is very promising, and if it work, future development on heterogeneous
+ platforms will be easy.
 \end_layout
 
 \begin_layout Standard
